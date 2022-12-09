@@ -13,14 +13,14 @@
                 <Setter Property="Width" Value="400" />
             </Style>
         </StackPanel.Resources>
-        <Label x:Name="lblLastUpdate" Height="50" Width="100"></Label>
+        <Label x:Name="lblLastUpdate" Height="50" Width="400"></Label>
         <Label x:Name="lblCityName" Height="50" Width="400" Content="Please Type in a City" ></Label>
         <Label x:Name="lblWeatherAndTemp" Height="50" Width="400"></Label>
         <Image x:Name="Img" Height="200" Width="400" Source="/MainMenu.png"></Image>
         <Label x:Name="lblInfoSun" Height="50" Width="400"></Label>
         <TextBox x:Name="tbInputCityName" Height="20" Width="400" ToolTip="Type in City here!"></TextBox>
         <Button Content="Search" Height="50" Width="400" x:Name="btnSearch" Click="btnSearch_Click"></Button>
-        
+        <WebBrowser x:Name="wbMaps" Height="400" Source="https://www.google.com/maps"/>
     </StackPanel>
 
 </Window>

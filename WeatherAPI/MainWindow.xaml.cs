@@ -63,7 +63,7 @@ namespace WeatherAPI
                 else
                 {
                     lblCityName.Content = $"Showing results for:  {weatherLocation.Name} {weatherLocation.Sys.Country} \t {weatherLocation.Coord.Lat} N : {weatherLocation.Coord.Lon} W";
-                    lblWeatherAndTemp.Content = $"{weatherLocation.Main.Temp - 273 - 15}°C {weatherLocation.Weather[0].Description}";
+                    lblWeatherAndTemp.Content = $"{ Math.Round(weatherLocation.Main.Temp - 273.15)}°C {weatherLocation.Weather[0].Description}";
                     
                     lblInfoSun.Content = $"Sun rises at: {CalculateTimeFromMillisecondsToActualTime(weatherLocation.Sys.Sunrise, weatherLocation.Timezone)} \n Sun sets at: {CalculateTimeFromMillisecondsToActualTime(weatherLocation.Sys.Sunset, weatherLocation.Timezone)}";
 
@@ -99,6 +99,8 @@ namespace WeatherAPI
                     logo.UriSource = new Uri(path);
                     logo.EndInit();
                     Img.Source = logo;
+                    lblLastUpdate.Content = "Last Update: " + DateTime.Now;
+                    wbMaps.Source= new Uri($"https://www.google.ch/maps/@{weatherLocation.Coord.Lat},{weatherLocation.Coord.Lon},10z?hl=de");
                 }
             }
 
