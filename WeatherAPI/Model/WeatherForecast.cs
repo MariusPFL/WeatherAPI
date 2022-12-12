@@ -183,7 +183,7 @@ namespace CodeBeautify
 
     public enum Pod { D, N };
 
-    public enum MainEnum { Clouds, Rain, Snow };
+    public enum MainEnum { Clouds, Rain, Snow, Clear };
 
 
     internal static class Converter

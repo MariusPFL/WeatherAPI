@@ -28,7 +28,7 @@ namespace WeatherAPI.Pages
                 if (weatherForecast.List[i].DtTxt.Hour == 12)
                 {
                     Label label = new Label();
-                    label.Content = $"{weatherForecast.List[i].DtTxt.DayOfWeek} \nWeather: {weatherForecast.List[i].Weather[0].Description} \tTemperature: {Math.Round(weatherForecast.List[i].Main.Temp -273.15)} \n\n";
+                    label.Content = $"\n\n\n{weatherForecast.List[i].DtTxt.DayOfWeek} \nWeather: {weatherForecast.List[i].Weather[0].Description} \tTemperature: {Math.Round(weatherForecast.List[i].Main.Temp -273.15)} \n";
                     stackPanel.Children.Add(label);
                     Image image = new Image();
                     MainWindow.changePictureBasedOnWeatherStatus(image, weatherForecast.List[i].Weather[0].Main.ToString());
