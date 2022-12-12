@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Net.WebRequestMethods;
-// using WeatherAPI.Model;
 using Newtonsoft.Json;
 using WeatherAPI.Model;
 using WeatherAPI.Services;
@@ -22,7 +21,6 @@ using Microsoft.Win32;
 using CodeBeautify;
 using WeatherAPI.Pages;
 
-// API KEY: 8a6ffc5fc9687f07fcfaba425c3bdc66
 namespace WeatherAPI
 {
     /// <summary>
@@ -105,7 +103,7 @@ namespace WeatherAPI
             return true;
         }
 
-        public String CalculateTimeFromMillisecondsToActualTime(long UnixTimeStamp)
+        public String CalculateTimeFromStamp(long UnixTimeStamp)
         {
             return DateTimeOffset.FromUnixTimeSeconds(UnixTimeStamp).DateTime.ToString("hh:mm");
         }
@@ -120,7 +118,7 @@ namespace WeatherAPI
                 {
                     lblCityName.Content = $"Showing results for:  {weatherLocation.Name} {weatherLocation.Sys.Country} \t {weatherLocation.Coord.Lat} N : {weatherLocation.Coord.Lon} W";
                     lblWeatherAndTemp.Content = $"{Math.Round(weatherLocation.Main.Temp - 273.15)}°C {weatherLocation.Weather[0].Description}";
-                    lblInfoSun.Content = $"Sun rises at: {CalculateTimeFromMillisecondsToActualTime(weatherLocation.Sys.Sunrise)} \nSun sets at: {CalculateTimeFromMillisecondsToActualTime(weatherLocation.Sys.Sunset)}";
+                    lblInfoSun.Content = $"Sun rises at: {CalculateTimeFromStamp(weatherLocation.Sys.Sunrise)} \nSun sets at: {CalculateTimeFromStamp(weatherLocation.Sys.Sunset)}";
                     changePictureBasedOnWeatherStatus(Img, weatherLocation.Weather[0].Main);
                     lblLastUpdate.Content = "Last Update: " + DateTime.Now;
                     wbMaps.Source = new Uri($"https://www.google.ch/maps/@{weatherLocation.Coord.Lat},{weatherLocation.Coord.Lon},10z?hl=de");
@@ -140,7 +138,6 @@ namespace WeatherAPI
                     ForecastBox forecastBox = new ForecastBox(weatherForecast);
                     forecastBox.Show();
                 }
-
             }
         }
 

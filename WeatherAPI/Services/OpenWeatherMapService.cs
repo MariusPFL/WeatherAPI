@@ -14,7 +14,6 @@ namespace WeatherAPI.Services
     class OpenWeatherMapService
     {
         private static String APIKEY = "8a6ffc5fc9687f07fcfaba425c3bdc66";
-        // https://api.openweathermap.org/data/2.5/weather?q=Olten&appid=8a6ffc5fc9687f07fcfaba425c3bdc66
 
         /// <summary>
         /// HTTPClients gets the Api from the URL
@@ -40,7 +39,7 @@ namespace WeatherAPI.Services
             {
                 return JsonConvert.DeserializeObject<WeatherForecast>(responseContent);
             }
-            catch (DivideByZeroException)
+            catch (Exception)
             {
                 WeatherForecast weatherForecast = new WeatherForecast();
                 weatherForecast.Cod = 400;
