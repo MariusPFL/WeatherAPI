@@ -27,10 +27,10 @@
         <Label x:Name="lblWeatherAndTemp" Height="50" Width="400"></Label>
         <Image x:Name="Img" Height="200" Width="400" Source="/MainMenu.png"></Image>
         <Label x:Name="lblInfoSun" Height="50" Width="400"></Label>
-        <TextBox x:Name="tbInputCityName" Height="20" Width="400" ToolTip="Type in City here!" TextChanged="tbInputCityName_TextChanged"></TextBox>
+        <TextBox x:Name="tbInputCityName" Height="20" Width="400" ToolTip="Type in City here!" TextChanged="TtbInputCityName_TextChanged"></TextBox>
         <Label x:Name="lblPlaceHolder1" Height="10"></Label>
-        <Button Content="Search" x:Name="btnSearch" Click="btnSearch_Click"></Button>
-        <Button Content="Forecast" x:Name="btnForecast" Click="btnForecast_Click" IsEnabled="false"></Button>
+        <Button Content="Search" x:Name="btnSearch" Click="BtnSearch_Click"></Button>
+        <Button Content="Forecast" x:Name="btnForecast" Click="BtnForecast_Click" IsEnabled="false"></Button>
         <Label x:Name="lblPlaceHolder" Height="100"></Label>
         <WebBrowser x:Name="wbMaps" Height="400" Width="800" Source="https://www.google.com/maps"/>
     </StackPanel>

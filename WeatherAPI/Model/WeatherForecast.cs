@@ -206,6 +206,6 @@
             return;
         }
 
-        public static readonly ParseStringConverter Singleton = new ParseStringConverter();
+        public static readonly ParseStringConverter Singleton = new();
     }
 }

@@ -29,15 +29,16 @@ namespace WeatherAPI
     public partial class MainWindow : Window
     {
 
+        OpenWeatherMapService ServiceProvider;
         public MainWindow()
         {
             InitializeComponent();
+            ServiceProvider = new();
         }
 
-        OpenWeatherMapService ServiceProvider = new OpenWeatherMapService();
 
 
-        public static void changePictureBasedOnWeatherStatus(Image image, String weatherStatus)
+        public static void ChangePictureBasedOnWeatherStatus(Image image, String weatherStatus)
         {
             String path = "C:\\Users\\mapf\\source\\repos\\WeatherAPI\\WeatherAPI\\Source\\";
             switch (weatherStatus)
@@ -70,14 +71,14 @@ namespace WeatherAPI
                     path += "MainMenu.png";
                     break;
             }
-            BitmapImage logo = new BitmapImage();
+            BitmapImage logo = new();
             logo.BeginInit();
             logo.UriSource = new Uri(path);
             logo.EndInit();
             image.Source = logo;
         }
 
-        public Boolean WasApiCallSuccessfull(long code)
+        public static Boolean WasApiCallSuccessfull(long code)
         {
             if (code == 404)
             {
@@ -92,7 +93,7 @@ namespace WeatherAPI
             return true;
         }
 
-        public Boolean IsInputFilled(String inputCityName)
+        public static Boolean IsInputFilled(String inputCityName)
         {
             String city = inputCityName.Trim();
             if (city == "")
@@ -103,23 +104,23 @@ namespace WeatherAPI
             return true;
         }
 
-        public String CalculateTimeFromStamp(long UnixTimeStamp)
+        public static String CalculateTimeFromStamp(long UnixTimeStamp)
         {
             return DateTimeOffset.FromUnixTimeSeconds(UnixTimeStamp).DateTime.ToString("hh:mm");
         }
 
-        private async void btnSearch_Click(object sender, RoutedEventArgs e)
+        private async void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
             String city = tbInputCityName.Text.Trim();
             if (IsInputFilled(city))
             {
-                WeatherLocation weatherLocation = await ServiceProvider.getWeatherFromCityName(city);
+                WeatherLocation weatherLocation = await ServiceProvider.GetWeatherFromCityName(city);
                 if (WasApiCallSuccessfull(weatherLocation.Cod))
                 {
                     lblCityName.Content = $"Showing results for:  {weatherLocation.Name} {weatherLocation.Sys.Country} \t {weatherLocation.Coord.Lat} N : {weatherLocation.Coord.Lon} W";
                     lblWeatherAndTemp.Content = $"{Math.Round(weatherLocation.Main.Temp - 273.15)}°C {weatherLocation.Weather[0].Description}";
                     lblInfoSun.Content = $"Sun rises at: {CalculateTimeFromStamp(weatherLocation.Sys.Sunrise)} \nSun sets at: {CalculateTimeFromStamp(weatherLocation.Sys.Sunset)}";
-                    changePictureBasedOnWeatherStatus(Img, weatherLocation.Weather[0].Main);
+                    ChangePictureBasedOnWeatherStatus(Img, weatherLocation.Weather[0].Main);
                     lblLastUpdate.Content = "Last Update: " + DateTime.Now;
                     wbMaps.Source = new Uri($"https://www.google.ch/maps/@{weatherLocation.Coord.Lat},{weatherLocation.Coord.Lon},10z?hl=de");
                     btnForecast.IsEnabled = true;
@@ -127,21 +128,21 @@ namespace WeatherAPI
             }
         }
 
-        private async void btnForecast_Click(object sender, RoutedEventArgs e)
+        private async void BtnForecast_Click(object sender, RoutedEventArgs e)
         {
             String city = tbInputCityName.Text.Trim();
             if (IsInputFilled(city))
             {
-                WeatherForecast weatherForecast = await ServiceProvider.getWeatherForecastFromCityName(city);
+                WeatherForecast weatherForecast = await ServiceProvider.GetWeatherForecastFromCityName(city);
                 if (WasApiCallSuccessfull(weatherForecast.Cod))
                 {
-                    ForecastBox forecastBox = new ForecastBox(weatherForecast);
+                    ForecastBox forecastBox = new(weatherForecast);
                     forecastBox.Show();
                 }
             }
         }
 
-        private void tbInputCityName_TextChanged(object sender, TextChangedEventArgs e)
+        private void TtbInputCityName_TextChanged(object sender, TextChangedEventArgs e)
         {
             btnForecast.IsEnabled = false;
         }
