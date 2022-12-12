@@ -8,9 +8,18 @@
         Title="MainWindow" Height="600" Width="800">
     <StackPanel>
         <StackPanel.Resources>
-            <Style TargetType="Button" x:Key="Normalbutton">
+            <Style TargetType="Button" >
                 <Setter Property="Height" Value="50" />
                 <Setter Property="Width" Value="400" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="Background" Value="Black" />
+                <Setter Property="Foreground" Value="White" />
+
+                <Style.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Style.Resources>
             </Style>
         </StackPanel.Resources>
         <Label x:Name="lblLastUpdate" Height="50" Width="400"></Label>
@@ -19,8 +28,10 @@
         <Image x:Name="Img" Height="200" Width="400" Source="/MainMenu.png"></Image>
         <Label x:Name="lblInfoSun" Height="50" Width="400"></Label>
         <TextBox x:Name="tbInputCityName" Height="20" Width="400" ToolTip="Type in City here!"></TextBox>
-        <Button Content="Search" Height="50" Width="400" x:Name="btnSearch" Click="btnSearch_Click"></Button>
-        <WebBrowser x:Name="wbMaps" Height="400" Source="https://www.google.com/maps"/>
+        <Label x:Name="lblPlaceHolder1" Height="10"></Label>
+        <Button Content="Search" x:Name="btnSearch" Click="btnSearch_Click"></Button>
+        <Label x:Name="lblPlaceHolder" Height="100"></Label>
+        <WebBrowser x:Name="wbMaps" Height="400" Width="800" Source="https://www.google.com/maps"/>
     </StackPanel>
 
 </Window>

@@ -34,14 +34,6 @@ namespace WeatherAPI
             InitializeComponent();
         }
 
-
-        /*
-         * TODO 
-         * 
-         * Letzte Aktualisierung
-         * 
-        */ 
-
         private async void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             OpenWeatherMapService serviceProvider = new OpenWeatherMapService();
@@ -60,12 +52,16 @@ namespace WeatherAPI
                 {
                     MessageBox.Show("City not found! 404");
                 }
+                else if (weatherLocation.Cod == 400)
+                {
+                    MessageBox.Show("Something went wrong! 400");
+                }
                 else
                 {
                     lblCityName.Content = $"Showing results for:  {weatherLocation.Name} {weatherLocation.Sys.Country} \t {weatherLocation.Coord.Lat} N : {weatherLocation.Coord.Lon} W";
                     lblWeatherAndTemp.Content = $"{ Math.Round(weatherLocation.Main.Temp - 273.15)}°C {weatherLocation.Weather[0].Description}";
                     
-                    lblInfoSun.Content = $"Sun rises at: {CalculateTimeFromMillisecondsToActualTime(weatherLocation.Sys.Sunrise, weatherLocation.Timezone)} \n Sun sets at: {CalculateTimeFromMillisecondsToActualTime(weatherLocation.Sys.Sunset, weatherLocation.Timezone)}";
+                    lblInfoSun.Content = $"Sun rises at: {CalculateTimeFromMillisecondsToActualTime(weatherLocation.Sys.Sunrise)} \nSun sets at: {CalculateTimeFromMillisecondsToActualTime(weatherLocation.Sys.Sunset)}";
 
 
 
@@ -88,7 +84,10 @@ namespace WeatherAPI
                             path += "rain.png";
                             break;
                         case "Mist":
-                            path += "cloudy.png";
+                            path += "foggy.png";
+                            break;
+                        case "Fog":
+                            path += "foggy.png";
                             break;
                         default:
                             path += "MainMenu.png";
@@ -103,17 +102,11 @@ namespace WeatherAPI
                     wbMaps.Source= new Uri($"https://www.google.ch/maps/@{weatherLocation.Coord.Lat},{weatherLocation.Coord.Lon},10z?hl=de");
                 }
             }
-
         }
 
-        public String CalculateTimeFromMillisecondsToActualTime(double milliSeconds, long Timezone)
+        public String CalculateTimeFromMillisecondsToActualTime(long UnixTimeStamp)
         {
-            milliSeconds /= 1000;
-            milliSeconds -= Timezone;
-            milliSeconds /= 3600;
-            String hours = milliSeconds.ToString().Substring(0, 1);
-            double minutes = Math.Round(Convert.ToDouble(milliSeconds.ToString().Substring(1, 2)) * 0.6);
-            return $"{hours}:{minutes}";
+            return DateTimeOffset.FromUnixTimeSeconds(UnixTimeStamp).DateTime.ToString("hh:mm");
         }
     }
 }
