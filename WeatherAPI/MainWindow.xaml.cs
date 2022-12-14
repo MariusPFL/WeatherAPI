@@ -20,6 +20,7 @@ using WeatherAPI.Services;
 using Microsoft.Win32;
 using CodeBeautify;
 using WeatherAPI.Pages;
+using System.IO;
 
 namespace WeatherAPI
 {
@@ -40,7 +41,7 @@ namespace WeatherAPI
 
         public static void ChangePictureBasedOnWeatherStatus(Image image, String weatherStatus)
         {
-            String path = "C:\\Users\\mapf\\source\\repos\\WeatherAPI\\WeatherAPI\\Source\\";
+            String path = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\\Source\\";
             switch (weatherStatus)
             {
                 case "Snow":
